@@ -1,11 +1,12 @@
 @import 'helpers';
 
-html, body {
+html,
+body {
 	height: 100%;
 	width: 100%;
 	padding: 0;
 	margin: 0;
-	background: #FAFAFA;
+	background: #fafafa;
 	font-family: 'Helvetica Neue', arial, sans-serif;
 	font-weight: 400;
 	color: #444;
@@ -19,4 +20,142 @@ html, body {
 
 #app {
 	height: 100%;
+}
+
+.Main {
+	text-align: center;
+	height: calc(~"100vh - 105px");
+	background: #eaeaea;
+}
+
+.Bar {
+	text-align: center;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 10px 0;
+
+	&__title {
+		width: 200vw;
+		white-space: nowrap;
+		transition: all .6s ease-in-out;
+		font-size: 24px;
+
+		&--on {
+			transform: translateX(-50%);
+		}
+
+		&--off {
+			transform: translateX(0%);
+		}
+	}
+
+	&__text {
+		width: 100vw;
+		display: inline-block;
+		transition: all .3s ease-in-out;
+
+		&--on {
+			color: @dark;
+
+			.Bar__title--off & {
+				opacity: 0;
+			}
+		}
+
+		&--off {
+			color: @light;
+			.Bar__title--on & {
+				opacity: 0;
+			}
+		}
+	}
+}
+
+.Color {
+	border: 1px solid #fff;
+	width: 60px;
+	height: 60px;
+}
+
+.Switch {
+	font-size: 28px;
+	height: 2em;
+	padding: 0 1.25em;
+	display: inline-block;
+
+	&__point {
+		width: 1.58em;
+		height: 0.4em;
+		border-radius: 0.2em;
+		display: inline-block;
+		margin-left: 0.4em;
+		position: relative;
+		vertical-align: middle;
+		transform: translate3d(0, -2px, 0);
+		background: lighten(@light, 25%);
+		transition: 0.01s background linear;
+		transition-delay: 0.09s;
+
+		.Switch--yes & {
+			background: lighten(@dark, 25%);
+		}
+
+		&:after {
+			content: "";
+			width: 0.83em;
+			height: 0.83em;
+			display: block;
+			border-radius: 50%;
+			background: @light;
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+			position: absolute;
+			top: -0.2em;
+			left: 0;
+			transition: 0.1s transform linear;
+
+			.Switch--yes & {
+				transform: translate3d(0.75em, 0, 0);
+				background: @dark;
+			}
+		}
+	}
+}
+
+.Bulb {
+	width: 100%;
+	height: 100%;
+
+	&__circle,
+	&__glow {
+		width: 40vw;
+		height: 40vw;
+		border-radius: 50%;
+		position: absolute;
+		top: calc(~"50% - 20vw - 105px");
+		left: calc(~"50% - 20vw");
+	}
+
+	&__circle {
+		background-color: currentColor;
+		will-change: background-color;
+		z-index: 2;
+		transition: 0.4s ease-in-out all;
+
+		.Bulb--off & {
+			transform: scale(.95);
+		}
+	}
+
+	&__glow {
+		box-shadow: 0 0 100px currentColor;
+		z-index: 1;
+		transition: 0.4s ease-in-out all;
+		will-change: box-shadow;
+
+		.Bulb--off & {
+			transform: scale(.3);
+		}
+	}
 }
