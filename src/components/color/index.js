@@ -1,7 +1,10 @@
 import { h, Component } from 'preact';
 
-export default class Color extends Component {
-	render({ value }, state) {
-		return <button class="Color" style={{ backgroundColor: value }} />;
-	}
-}
+const Color = ({ value, onSelect }) =>
+	(<button
+		class="Color"
+		style={{ backgroundColor: value }}
+		onClick={onSelect.bind(value)}
+	/>);
+
+export default Color;
