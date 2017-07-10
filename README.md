@@ -4,5 +4,8 @@ Apply material design colors
 
 
 ## Todo
-- deploy to firebase 
+- deploy to firebase
 - remove the router
+- handle on disconect
+- save the color in localstorage
+- desktop version
