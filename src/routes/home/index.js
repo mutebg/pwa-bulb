@@ -1,8 +1,7 @@
 import { h, Component } from 'preact';
 import style from './style';
-import Color from '../../components/color';
 import Switch from '../../components/Switch';
-import Palletes from '../../lib/palettes';
+import Pallete from '../../components/pallete';
 import Bulb from '../../components/bulb';
 import { connect, powerOn, powerOff } from '../../lib/bulb';
 
@@ -35,6 +34,7 @@ export default class Home extends Component {
 	render(props, { bulbStatus, device }) {
 		return (
 			<div class={style.home}>
+				<Pallete onSelect={() => console.log('click')} />
 				<div class="Main">
 					<Bulb color="#19edf0" isOn={bulbStatus} />
 				</div>
@@ -57,11 +57,6 @@ export default class Home extends Component {
 							<Switch onSwitch={this.onSwitch} value={bulbStatus} />
 						</div>}
 				</footer>
-				{/* {Palletes.map(row =>
-					(<div class={style.row}>
-						{row.hexes.map(color => <Color value={color} />)}
-					</div>)
-				)} */}
 			</div>
 		);
 	}
