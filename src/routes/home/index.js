@@ -3,12 +3,13 @@ import style from './style';
 import Switch from '../../components/Switch';
 import Pallete from '../../components/pallete';
 import Bulb from '../../components/bulb';
-import { connect, powerOn, powerOff } from '../../lib/bulb';
+import { connect, powerOn, powerOff, setColor, hexToRgb } from '../../lib/bulb';
 
 export default class Home extends Component {
 	state = {
 		bulbStatus: false,
-		device: false
+		device: false,
+		color: '#fff'
 	};
 
 	onSwitch = bulbStatus => {
@@ -31,12 +32,19 @@ export default class Home extends Component {
 		});
 	};
 
-	render(props, { bulbStatus, device }) {
+	changeColor = color => {
+		setColor(this.state.device, ...hexToRgb(color));
+		this.setState({
+			color
+		});
+	};
+
+	render(props, { bulbStatus, device, color }) {
 		return (
 			<div class={style.home}>
-				<Pallete onSelect={() => console.log('click')} />
+				<Pallete color={color} onSelect={this.changeColor} />
 				<div class="Main">
-					<Bulb color="#19edf0" isOn={bulbStatus} />
+					<Bulb color={color} isOn={bulbStatus} />
 				</div>
 				<footer class="Bar">
 					{!device
