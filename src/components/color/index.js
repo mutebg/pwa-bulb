@@ -5,6 +5,8 @@ const Color = ({ value, onSelect }) =>
 		class="Color"
 		style={{ backgroundColor: value }}
 		onClick={() => onSelect(value)}
-	/>);
+	>
+		Change color to: {value}
+	</button>);
 
 export default Color;

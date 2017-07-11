@@ -25,7 +25,11 @@ export default class Pallete extends Component {
 						</div>)
 					)}
 				</div>
-				<button class="Pallete__btn" onClick={this.toggle}>
+				<button
+					class="Pallete__btn"
+					onClick={this.toggle}
+					aria-label="Toggle pallete"
+				>
 					<svg
 						fill="currentColor"
 						height="24"
