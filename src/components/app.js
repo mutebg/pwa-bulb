@@ -9,7 +9,7 @@ export default class App extends Component {
 	state = {
 		bulbStatus: false,
 		device: false,
-		color: readStore('color') || '#fff'
+		color: typeof window !== 'undefined' ? readStore('color') || '#fff' : '#fff'
 	};
 
 	onSwitch = bulbStatus => {
