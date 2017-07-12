@@ -1,26 +1,39 @@
 import { h, Component } from 'preact';
-import palletes from '../../lib/palettes';
 import Color from '../color';
 
 export default class Pallete extends Component {
 	state = {
-		isOpen: false
+		isOpen: false,
+		palletes: []
 	};
 
 	toggle = () => {
+		//load palletes asycnc on the very first time click toggle button
+		if (this.state.palletes.length === 0 && this.state.isOpen === false) {
+			import('../../lib/palettes').then(palletes => {
+				this.setState({
+					palletes: palletes.default
+				});
+			});
+		}
+
 		this.setState({
 			isOpen: !this.state.isOpen
 		});
 	};
 
-	render({ onSelect }, { isOpen }) {
+	render({ onSelect, color: current }, { isOpen, palletes }) {
 		return (
 			<div class={`Pallete Pallete--${isOpen ? 'open' : 'close'}`}>
 				<div class="Pallete__wrapper">
 					{palletes.map(row =>
 						(<div class="Pallete__row">
 							{row.hexes.map(color =>
-								<Color value={color} onSelect={onSelect} />
+								(<Color
+									value={color}
+									isSelected={color === current}
+									onSelect={onSelect}
+								/>)
 							)}
 						</div>)
 					)}

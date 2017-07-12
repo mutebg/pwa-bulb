@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import Switch from './switch';
 import Pallete from './pallete';
 import Bulb from './bulb';
-import { connect, powerOn, powerOff, setColor, hexToRgb } from '../lib/bulb';
+import { connect, powerOn, powerOff, setColor } from '../lib/bulb';
 import { readStore, writeStore } from '../lib/store';
 
 export default class App extends Component {
@@ -42,11 +42,13 @@ export default class App extends Component {
 	};
 
 	changeColor = color => {
-		setColor(this.state.device, color);
 		writeStore('color', color);
 		this.setState({
 			color
 		});
+		if (this.state.device) {
+			setColor(this.state.device, color);
+		}
 	};
 
 	render(props, { bulbStatus, device, color }) {
