@@ -1,4 +1,4 @@
-export const connect = () => {
+export const connect = onDisconnected => {
 	console.log('Requesting Bluetooth Device...');
 	return navigator.bluetooth
 		.requestDevice({
@@ -7,7 +7,7 @@ export const connect = () => {
 		.then(device => {
 			console.log('> Found ' + device.name);
 			console.log('Connecting to GATT Server...');
-			//device.addEventListener('gattserverdisconnected', onDisconnected);
+			device.addEventListener('gattserverdisconnected', onDisconnected);
 			return device.gatt.connect();
 		})
 		.then(server => {
@@ -42,7 +42,9 @@ export const powerOff = ledCharacteristic => {
 		.catch(err => console.log('Error when switching off! ', err));
 };
 
-export const setColor = (ledCharacteristic, red, green, blue) => {
+export const setColor = (ledCharacteristic, color) => {
+	let [red, green, blue] = typeof color === 'string' ? hexToRgb(color) : color;
+
 	let data = new Uint8Array([0x56, red, green, blue, 0x00, 0xf0, 0xaa]);
 	return ledCharacteristic
 		.writeValue(data)

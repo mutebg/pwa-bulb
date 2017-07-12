@@ -4,6 +4,6 @@ Apply material design colors
 
 
 ## Todo
-- handle on disconect
-- save the color in localstorage
 - desktop version
+- indicate current selected color
+- read initial value of the bulb on connect ( is is ON/OF, what is current color)

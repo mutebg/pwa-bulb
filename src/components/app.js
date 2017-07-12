@@ -3,17 +3,20 @@ import Switch from './switch';
 import Pallete from './pallete';
 import Bulb from './bulb';
 import { connect, powerOn, powerOff, setColor, hexToRgb } from '../lib/bulb';
+import { readStore, writeStore } from '../lib/store';
 
 export default class App extends Component {
 	state = {
 		bulbStatus: false,
 		device: false,
-		color: '#fff'
+		color: readStore('color') || '#fff'
 	};
 
 	onSwitch = bulbStatus => {
 		if (bulbStatus) {
-			powerOn(this.state.device);
+			powerOn(this.state.device).then(() => {
+				setColor(this.state.device, this.state.color);
+			});
 		}
 		else {
 			powerOff(this.state.device);
@@ -24,15 +27,23 @@ export default class App extends Component {
 	};
 
 	connect = () => {
-		connect().then(characteristic => {
+		connect(this.onDisconnected).then(characteristic => {
+			setColor(characteristic, this.state.color);
 			this.setState({
 				device: characteristic
 			});
 		});
 	};
 
+	onDisconnected = () => {
+		this.setState({
+			device: false
+		});
+	};
+
 	changeColor = color => {
-		setColor(this.state.device, ...hexToRgb(color));
+		setColor(this.state.device, color);
+		writeStore('color', color);
 		this.setState({
 			color
 		});
