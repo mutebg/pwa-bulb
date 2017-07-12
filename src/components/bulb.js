@@ -1,12 +1,12 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
 
-const Bulb = ({ color, isOn }) =>
-	(<div
+const Bulb = ({ color, isOn }) => (
+	<div
 		class={`Bulb Bulb--${isOn ? 'on' : 'off'}`}
 		style={`color: ${isOn ? color : '#cacaca'}`}
 	>
 		<div class="Bulb__circle" />
 		<div class="Bulb__glow" />
-	</div>);
-
+	</div>
+);
 export default Bulb;

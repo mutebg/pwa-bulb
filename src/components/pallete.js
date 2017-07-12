@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import Color from '../color';
+import Color from './color';
 
 export default class Pallete extends Component {
 	state = {
@@ -10,7 +10,7 @@ export default class Pallete extends Component {
 	toggle = () => {
 		//load palletes asycnc on the very first time click toggle button
 		if (this.state.palletes.length === 0 && this.state.isOpen === false) {
-			import('../../lib/palettes').then(palletes => {
+			import('../lib/palettes').then(palletes => {
 				this.setState({
 					palletes: palletes.default
 				});
@@ -28,13 +28,16 @@ export default class Pallete extends Component {
 				<div class="Pallete__wrapper">
 					{palletes.map(row =>
 						(<div class="Pallete__row">
-							{row.hexes.map(color =>
-								(<Color
-									value={color}
-									isSelected={color === current}
-									onSelect={onSelect}
-								/>)
-							)}
+							{row.hexes.map(color => {
+								const isSelected = color === current;
+								return (
+									<Color
+										value={color}
+										isSelected={isSelected}
+										onSelect={onSelect}
+									/>
+								);
+							})}
 						</div>)
 					)}
 				</div>
