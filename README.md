@@ -4,5 +4,4 @@ Apply material design colors
 
 
 ## Todo
-- desktop version
 - read initial value of the bulb on connect ( is is ON/OF, what is current color)
