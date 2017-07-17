@@ -2,6 +2,9 @@
 Control smart bulb using web bluetooth api.
 Apply material design colors
 
+## Demo
+https://pwa-bulb-5eb84.firebaseapp.com/
+
 
 ## Hardware:
 The app works with Magic Blue UU E27 Bulb
@@ -15,3 +18,4 @@ https://medium.com/@urish/reverse-engineering-a-bluetooth-lightbulb-56580fcb7546
 
 ## Todo
 - read the initial value of the bulb on connect.
+- make screenshots / video how it works
